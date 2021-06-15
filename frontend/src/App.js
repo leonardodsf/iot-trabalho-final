@@ -1,7 +1,12 @@
 import io from "socket.io-client";
 import './App.css';
 
-const socket = io('ws://localhost:3333');
+let socket;
+
+if(!socket){
+  socket = new io('ws://localhost:3333');
+}
+
 socket.on("log", (arg) => {
   console.log(arg); // world
 });
