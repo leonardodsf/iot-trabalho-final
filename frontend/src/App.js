@@ -1,32 +1,33 @@
-import io from "socket.io-client";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useState, useEffect } from 'react';
+import io from 'socket.io-client';
 import './App.css';
 
-let socket;
-
-if(!socket){
-  socket = new io('ws://localhost:3333');
-}
-
-socket.on("log", (arg) => {
-  console.log(arg); // world
-});
-
 function App() {
-  const handleWs = async () => {
-    const response = await fetch('http://localhost:3333/message', {
-      method: 'POST',
+  const [response, setResponse] = useState('');
+  
+  let socket;
+
+  useEffect(() => {
+
+    if (!socket) {
+      socket = new io('ws://localhost:3333');
+    }
+
+    socket.on('message', data => {
+      console.log(data);
+      setResponse(data);
     });
 
-    const resData = await response.json();
-
-    console.log(resData);
-  }
+  }, [response, setResponse]);
 
   return (
     <div className="App">
       <div>
         <h1>e us guri</h1>
-        <button onClick={handleWs} type="button">clicaaqui meu</button>
+        <span>
+          {response}
+        </span>
       </div>
     </div>
   );

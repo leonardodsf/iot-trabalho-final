@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const express = require('express');
 const cors = require('cors');
 
@@ -12,6 +13,8 @@ const io = require('socket.io')(server, {
 
 const routes = require('./routes');
 
+const PORT = process.env.PORT || 3333;
+
 app.use(express.json());
 app.use(cors({ origin: '*' }));
 app.use(routes);
@@ -20,10 +23,10 @@ app.set('socketio', io);
 io.on('connection', socket => {
   console.log(`Socket conectado: ${socket.id}`);
 
-  socket.emit('arduino', { data: 'deusolivre' });
+  socket.on('disconnect', () => {
+    console.log(`Socket desconectado: ${socket.id}`);
+  });
 });
-
-const PORT = process.env.PORT || 3333;
 
 server.listen(PORT, () => {
   console.log(`Server listening in port ${PORT}`);
