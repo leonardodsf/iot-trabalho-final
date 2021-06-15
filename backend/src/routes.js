@@ -3,14 +3,11 @@ const { v4: uuid } = require('uuid');
 
 const routes = express.Router();
 
-routes.get('/', (req, res) => {
-  res.status(200).send({
-    title: 'IoT Trabalho Final',
-    version: '1.0.0',
-  });
-});
-
 routes.post('/message', (req, res) => {
+  const io = req.app.get('socketio');
+
+  io.emit('log', { data: 'my data is good!' });
+
   res.status(200).send({
     id: uuid(),
     message: 'Request is successfully',
