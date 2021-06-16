@@ -6,14 +6,14 @@ const routes = express.Router();
 routes.post('/message', (req, res) => {
   const io = req.app.get('socketio');
 
-  const { nome } = req.body;
+  const { message } = req.body;
 
-  io.emit('message', nome);
+  io.emit('message', message);
 
   res.status(200).send({
     id: uuid(),
     message: 'Request is successfully',
-    data: nome,
+    data: message,
   });
 });
 
