@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
-import './App.css';
+
+import MessageCard from './components/MessageCard';
 
 function App() {
   const [response, setResponse] = useState([]);
@@ -9,7 +10,6 @@ function App() {
     const socket = io('ws://localhost:3333');
 
     socket.on('message', (data) => {
-      console.log(data);
       setResponse([...response, data]);
     });
 
@@ -18,12 +18,15 @@ function App() {
 
   return (
     <div className="App">
-      <div>
-        <h1>e us guri</h1>
-        {response.map((value) => (
-          <span>{value}</span>
-        ))}
-      </div>
+      {
+        response.length === 0 ? (
+          <MessageCard message="Nenhuma mensagem encontrada" isProtect />
+        ) : (
+          response.map((message) => (
+            <MessageCard message={message} />
+          ))
+        )
+      }
     </div>
   );
 }

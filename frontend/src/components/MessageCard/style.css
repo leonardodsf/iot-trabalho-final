@@ -1,0 +1,40 @@
+.message-card__div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 400px;
+  height: 150px;
+  border-radius: 8px;
+
+  color: var(--white);
+  font-weight: 500;
+  background: var(--secondary);
+}
+
+.message-card__div .card-content__div{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.message-card__div .card-content__div .content-icon__div{
+  display: flex;
+  justify-content: center;
+}
+
+.message-card__div .card-content__div .content-icon__div svg{
+  width: 30px;
+  height: 30px;
+  color: #d1d11c;
+}
+
+.message-card__div .card-content__div .content-icon__div svg.protected{
+  color: #36c229;
+}
+
+@media(max-width: 767px){
+  .message-card__div{
+    width: 300px;
+  }
+}
